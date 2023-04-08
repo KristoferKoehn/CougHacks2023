@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dtls1vtus6nmc"]
+[gd_scene load_steps=20 format=3 uid="uid://dtls1vtus6nmc"]
 
 [ext_resource type="Script" path="res://Scenes/Realplayer.gd" id="1_prxx7"]
 [ext_resource type="Texture2D" uid="uid://c7whqj4g2rnm0" path="res://3d assets/Player_UV.png" id="2_4amed"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scenes/fishingaimer.gd" id="5_ux8w1"]
 [ext_resource type="PackedScene" uid="uid://c6tnrcvaigsx4" path="res://Scenes/theone.tscn" id="6_uas8f"]
 [ext_resource type="PackedScene" uid="uid://74mbn7tujqed" path="res://Scenes/thejohnson.tscn" id="7_88xag"]
+[ext_resource type="AudioStream" uid="uid://cvtl3jct3r35k" path="res://sounds/retract.wav" id="9_gxeny"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_egp6b"]
 albedo_texture = ExtResource("2_4amed")
@@ -538,4 +539,7 @@ transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 1, 0, 9.82706, 11.2772)
 mesh = SubResource("CylinderMesh_5ij48")
 
 [node name="IndicatorCam" type="Camera3D" parent="Indicator"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 0.1, 0, -1, -4.37114e-07, 0, 10.2688, 0)
+transform = Transform3D(1, 0, 0, 0, 0.0450215, 0.089292, 0, -0.89292, 0.450215, 0, 7.03536, 40.7516)
+
+[node name="retract" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("9_gxeny")

@@ -1,15 +1,35 @@
-[gd_scene load_steps=7 format=3 uid="uid://cdaqrv5ql75w1"]
+[gd_scene load_steps=13 format=3 uid="uid://cdaqrv5ql75w1"]
 
+[ext_resource type="Script" path="res://Scenes/map.gd" id="1_8yfr3"]
 [ext_resource type="PackedScene" uid="uid://bbr1aunn0ytqt" path="res://Scenes/water.tscn" id="1_bepcn"]
 [ext_resource type="PackedScene" uid="uid://dtls1vtus6nmc" path="res://Scenes/Realplayer.tscn" id="3_on7y2"]
 [ext_resource type="PackedScene" uid="uid://dwq11d2oetdca" path="res://Scenes/spawner1.tscn" id="3_pnpyn"]
 [ext_resource type="PackedScene" uid="uid://jeyf06g13gtt" path="res://Scenes/basins.tscn" id="3_ui47m"]
-[ext_resource type="PackedScene" uid="uid://bf5y68shwmxdd" path="res://Scenes/fish_wun.tscn" id="4_4m2jk"]
+[ext_resource type="AudioStream" uid="uid://dws8o5244o0um" path="res://sounds/bite.wav" id="6_ra4oh"]
+[ext_resource type="AudioStream" uid="uid://davsjn57q0en6" path="res://sounds/birds.wav" id="7_fngbx"]
+[ext_resource type="AudioStream" uid="uid://dvoc47frami3o" path="res://sounds/aaackkckgh.wav" id="8_w7pr1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hjr87"]
 size = Vector3(400, 1, 400)
 
+[sub_resource type="LabelSettings" id="LabelSettings_trm64"]
+font_color = Color(0, 1, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pxanr"]
+shading_mode = 0
+albedo_color = Color(0.745098, 1, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_648xa"]
+material = SubResource("StandardMaterial3D_pxanr")
+flip_faces = true
+radius = 500.0
+height = 500.0
+
 [node name="Map" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.106125, 0.311207, -0.0698395)
+script = ExtResource("1_8yfr3")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.13644, 0)
@@ -19,21 +39,57 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.35681, 0)
 shape = SubResource("BoxShape3D_hjr87")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.834934, -0.448227, 0.319339, -0.55035, -0.680004, 0.484469, 0, -0.580248, -0.81444, 0, 30.0427, -12.9606)
-light_color = Color(1, 0.380392, 0.164706, 1)
+transform = Transform3D(0.834934, -0.448227, 0.319339, -0.55035, -0.680004, 0.484469, 0, -0.580248, -0.81444, 0.129715, 54.8671, -12.8694)
+light_indirect_energy = 10.13
+light_volumetric_fog_energy = 2.0
+light_angular_distance = 8.51
+light_bake_mode = 1
 
 [node name="basins" parent="." instance=ExtResource("3_ui47m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -11.5118, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -14.6911, 0)
 
-[node name="Node3D" parent="basins" instance=ExtResource("3_pnpyn")]
+[node name="spawner" parent="basins" instance=ExtResource("3_pnpyn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00221539, 0.0157821, 0.0156817)
 
 [node name="player" parent="." instance=ExtResource("3_on7y2")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.0332336, 0.57655, -0.210354)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.0332336, 0.57655, -0.210354)
 
 [node name="fish" type="Node" parent="."]
 
-[node name="Fish_Wun" parent="fish" instance=ExtResource("4_4m2jk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.78968, 0)
-
 [node name="water" parent="." instance=ExtResource("1_bepcn")]
+
+[node name="scoreLabel" type="Label" parent="."]
+offset_left = 22.0
+offset_top = 21.0
+offset_right = 140.0
+offset_bottom = 47.0
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_trm64")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_648xa")
+
+[node name="sounds" type="Node3D" parent="."]
+
+[node name="bite" type="AudioStreamPlayer3D" parent="sounds"]
+stream = ExtResource("6_ra4oh")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.52678, 59.0232, 0)
+stream = ExtResource("7_fngbx")
+autoplay = true
+max_distance = 1000.0
+
+[node name="aughk" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 193.564, 26.6348, 0)
+stream = ExtResource("8_w7pr1")
+max_db = 0.537
+autoplay = true
+max_distance = 327.52
+attenuation_filter_cutoff_hz = 2500.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 20.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

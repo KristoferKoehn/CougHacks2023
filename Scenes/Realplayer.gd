@@ -10,9 +10,12 @@ extends CharacterBody3D
 @onready var hat1 = $fuck/Skeleton3D/BoneAttachment3D2/foxydad
 @onready var hat2 = $fuck/Skeleton3D/BoneAttachment3D2/theone
 @onready var hat3 = $fuck/Skeleton3D/BoneAttachment3D2/thejohnson
+@onready var retractSound = $retract
 
 
 
+
+var score = 0
 var lure = preload("res://Scenes/hook.tscn")
 var input_dir_lure 
 var baitX
@@ -31,7 +34,7 @@ const FREQUENCY = 1
 var time = 0;
 
 
-const SPEED = 45.0
+const SPEED = 10.0
 const JUMP_VELOCITY = 4.5
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -65,6 +68,20 @@ func playerMovement():
 	direction = direction.rotated(Vector3.UP,spring_arm_pivot.rotation.y)
 	face.rotation.y=spring_arm_pivot.rotation.y
 	#aimer.rotation.y=spring_arm_pivot.rotation.y
+
+
+	if Input.is_action_pressed("turn_left") :
+		spring_arm_pivot.rotation.y += sensitivity*3
+
+	if Input.is_action_pressed("turn_right") :
+		spring_arm_pivot.rotation.y -= sensitivity*3
+
+	if Input.is_action_pressed("camera_up") :
+		spring_arm.rotation.x += sensitivity*3
+
+	if Input.is_action_pressed("camera_down") :
+		spring_arm.rotation.x -= sensitivity*3
+
 	if direction:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
@@ -105,8 +122,8 @@ func _physics_process(delta):
 	input_dir_lure = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	
 	if castState == 1:
-		bait.global_position.z += input_dir_lure[1]*0.005
-		bait.global_position.x += input_dir_lure[0]*0.005
+		bait.global_position.z += input_dir_lure[1]*0.05
+		bait.global_position.x += input_dir_lure[0]*0.05
 		
 	
 	if Input.is_action_just_pressed("return_line") and castState == 1:
@@ -114,6 +131,7 @@ func _physics_process(delta):
 		bait.queue_free()
 		indicator.visible = true
 		mainCam.set_current(not mainCam.current)
+		retractSound.play()
 
 	if Input.is_action_just_pressed("hatremove"):
 		hat1.visible = false

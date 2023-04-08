@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
-
-const SPEED = 2.0
+signal fish_caught(value)
+const SPEED = 3.0
 const JUMP_VELOCITY = 4.5
 const TRACK_DIST = 5
 
@@ -16,18 +16,17 @@ var rng = RandomNumberGenerator.new()
 var canSeeHook = false;
 var hookRef;
 
-var y_upper = 0
+var y_upper = 1
 var y_lower = -43
 
-var x_upper = 100
-var x_lower = -100
+var x_upper = 900
+var x_lower = -900
 
-var z_upper = 100
-var z_lower = -100
+var z_upper = 900
+var z_lower = -900
 
 func _ready():
 	timer.connect("timeout", move)
-	timer.wait_time = 1
 	set_rand_vel()
 
 func move():
@@ -60,9 +59,8 @@ func set_rand_vel():
 	else:
 		velocity.z = rng.randi_range(-5, 5) * SPEED
 	
-	print("howdy")
-	
 	armature.global_rotation.y = atan(velocity.z / velocity.x)
+	
 
 
 func isInBounds() -> bool:
@@ -90,10 +88,17 @@ func _physics_process(delta):
 	if canSeeHook:
 		if (hookRef != null):
 
-			#look_at(hookRef.global_position)
+			armature.look_at(hookRef.global_position)
+			armature.global_rotation = Vector3(0, PI + armature.global_rotation.y,0)
 			var distance = self.global_position - hookRef.global_position
-			self.velocity = distance.normalized() * -SPEED
-			armature.global_rotation.y = Math.PI - atan(velocity.x / velocity.z)
+			self.velocity = distance.normalized() * -SPEED * 3
+
+			if distance.length() < 3:
+				emit_signal("fish_caught", 3)
+				
+				queue_free()
+				
+
 			move_and_slide()
 			return
 		else:
@@ -115,4 +120,5 @@ func _on_area_3d_area_entered(area):
 		print("frfr sheesh")
 		canSeeHook = true;
 		hookRef = area;
+
 

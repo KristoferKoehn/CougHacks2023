@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://cdaqrv5ql75w1"]
+
+[ext_resource type="PackedScene" uid="uid://bbr1aunn0ytqt" path="res://Scenes/water.tscn" id="1_bepcn"]
+[ext_resource type="PackedScene" uid="uid://dtls1vtus6nmc" path="res://Scenes/Realplayer.tscn" id="3_on7y2"]
+[ext_resource type="PackedScene" uid="uid://dwq11d2oetdca" path="res://Scenes/spawner1.tscn" id="3_pnpyn"]
+[ext_resource type="PackedScene" uid="uid://jeyf06g13gtt" path="res://Scenes/basins.tscn" id="3_ui47m"]
+[ext_resource type="PackedScene" uid="uid://bf5y68shwmxdd" path="res://Scenes/fish_wun.tscn" id="4_4m2jk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hjr87"]
+size = Vector3(20, 1, 20)
+
+[node name="Map" type="Node3D"]
+
+[node name="Node3D" parent="." instance=ExtResource("1_bepcn")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.13644, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.35681, 0)
+shape = SubResource("BoxShape3D_hjr87")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.834934, -0.448227, 0.319339, -0.55035, -0.680004, 0.484469, 0, -0.580248, -0.81444, 0, 30.0427, -12.9606)
+light_color = Color(1, 0.380392, 0.164706, 1)
+
+[node name="basins" parent="." instance=ExtResource("3_ui47m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.674988, 0)
+
+[node name="Node3D" parent="basins" instance=ExtResource("3_pnpyn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00221539, 0.0157821, 0.0156817)
+
+[node name="player" parent="." instance=ExtResource("3_on7y2")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.646956, 0)
+
+[node name="fish" type="Node" parent="."]
+
+[node name="Fish_Wun" parent="fish" instance=ExtResource("4_4m2jk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.78968, 0)

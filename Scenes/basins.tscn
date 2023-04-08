@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://jeyf06g13gtt"]
+
+[ext_resource type="PackedScene" uid="uid://digin3v7njxrv" path="res://3d assets/basins.glb" id="1_5ug0b"]
+[ext_resource type="Texture2D" uid="uid://bfmliy5yaemg5" path="res://3d assets/Basins.png" id="2_riep4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j1cah"]
+albedo_texture = ExtResource("2_riep4")
+
+[node name="basins" instance=ExtResource("1_5ug0b")]
+
+[node name="Cube" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_j1cah")

@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://v8icynpvph10"]
+
+[ext_resource type="PackedScene" uid="uid://h361fqvpnoli" path="res://3d assets/fishing_pole.glb" id="1_o4kvp"]
+[ext_resource type="Texture2D" uid="uid://bx1micadoikyn" path="res://3d assets/Fishing_Pole_UV.png" id="2_jr4vh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xsf38"]
+albedo_texture = ExtResource("2_jr4vh")
+
+[node name="fishing_pole" instance=ExtResource("1_o4kvp")]
+
+[node name="Cube" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_xsf38")

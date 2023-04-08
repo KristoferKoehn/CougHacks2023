@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://bbr1aunn0ytqt"]
+
+[ext_resource type="Shader" path="res://Shaders/water.gdshader" id="1_tm02e"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_1y167"]
+lightmap_size_hint = Vector2i(7, 7)
+size = Vector2(400, 400)
+subdivide_width = 800
+subdivide_depth = 800
+orientation = 1
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_pkugc"]
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4u7ua"]
+seamless = true
+as_normal_map = true
+bump_strength = 5.6
+noise = SubResource("FastNoiseLite_pkugc")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7flnh"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_k40l6"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b0s35"]
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_k40l6")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2xfhv"]
+render_priority = 0
+shader = ExtResource("1_tm02e")
+shader_parameter/albedo = Color(0, 0.321569, 0.431373, 1)
+shader_parameter/albedo2 = Color(0.14902, 0.631373, 0.752941, 1)
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 0.05
+shader_parameter/wave_direction = Vector2(0.5, 0.5)
+shader_parameter/wave_direction2 = Vector2(0, 1)
+shader_parameter/time_scale = 0.01
+shader_parameter/noise_scale = 200.0
+shader_parameter/height_scale = 1.0
+shader_parameter/color_deep = Color(0, 0, 0.462745, 0)
+shader_parameter/color_shallow = Color(0.780392, 0.776471, 0.780392, 0.796078)
+shader_parameter/beers_law = 2.0
+shader_parameter/depth_offset = -0.75
+shader_parameter/edge_scale = 0.5
+shader_parameter/near = 1.0
+shader_parameter/far = 100.0
+shader_parameter/edge_color = Color(1, 1, 1, 1)
+shader_parameter/wave = SubResource("NoiseTexture2D_b0s35")
+shader_parameter/texture_normal = SubResource("NoiseTexture2D_4u7ua")
+shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_7flnh")
+
+[node name="water" type="MeshInstance3D"]
+mesh = SubResource("QuadMesh_1y167")
+surface_material_override/0 = SubResource("ShaderMaterial_2xfhv")

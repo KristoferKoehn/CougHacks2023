@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://do6btuux4a4f3"]
+
+[ext_resource type="PackedScene" uid="uid://bbf4qax3i3ivt" path="res://3d assets/balls.glb" id="1_1pisp"]
+[ext_resource type="Texture2D" uid="uid://caisveiv2fwol" path="res://3d assets/balls_UV.png" id="2_ocb51"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ahs7n"]
+albedo_texture = ExtResource("2_ocb51")
+
+[node name="balls" instance=ExtResource("1_1pisp")]
+
+[node name="Sphere" parent="." index="0"]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -0.0229034, 6.87557, -0.0138981)
+material_override = SubResource("StandardMaterial3D_ahs7n")

@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://ceje5suw5v4nw"]
+
+[ext_resource type="Script" path="res://Scripts/Node3D.gd" id="1_mx1n6"]
+[ext_resource type="Script" path="res://Scenes/fishingaimer.gd" id="2_nxl8a"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_bwxkl"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_vi0nk"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6baeg"]
+radius = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_oda3w"]
+
+[node name="Node3D" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_mx1n6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_bwxkl")
+
+[node name="fishingaimer" type="RayCast3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 8.85126e-07, -1.42342e-09, -1.10641e-08, 77.3949, -0.253116, -1.42344e-09, 20.2493, 0.967436, -5.80588e-07, 1.23204, -1.21319)
+script = ExtResource("2_nxl8a")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.398606, 0.354568, 0)
+mesh = SubResource("BoxMesh_vi0nk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_6baeg")
+
+[node name="SpringArmPivot" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="SpringArmPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.60994e-07, 1.23204, 1.5228)
+
+[node name="Camera3D" type="Camera3D" parent="SpringArmPivot/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.17783)
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.02097, 0)
+target_position = Vector3(0, -0.2, 0)
+collide_with_areas = true
+
+[node name="Indicator" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 2, 0, 0, 0, 0.2, 0.73135, 0, 0)
+mesh = SubResource("CylinderMesh_oda3w")
+
+[node name="IndicatorCam" type="Camera3D" parent="Indicator"]
+transform = Transform3D(9.55343e-15, 5, 2.18557e-06, 2.18557e-07, -2.18557e-07, 0.5, 5, 9.4579e-13, -2.18557e-06, 0, 1.9196, 0)

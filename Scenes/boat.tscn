@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://dned76bohkwil"]
+
+[ext_resource type="PackedScene" uid="uid://k5okdr8wes76" path="res://3d assets/boat.glb" id="1_d7f35"]
+[ext_resource type="Texture2D" uid="uid://bwe3abe6q0cc6" path="res://3d assets/Boat_UV.png" id="2_evbqq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_222ob"]
+albedo_texture = ExtResource("2_evbqq")
+
+[node name="boat" instance=ExtResource("1_d7f35")]
+
+[node name="Cube" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_222ob")

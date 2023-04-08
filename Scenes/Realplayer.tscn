@@ -543,3 +543,4 @@ transform = Transform3D(1, 0, 0, 0, 0.0450215, 0.089292, 0, -0.89292, 0.450215, 
 
 [node name="retract" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("9_gxeny")
+volume_db = -2.883

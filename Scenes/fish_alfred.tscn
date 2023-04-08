@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://3ik35vftc8pb"]
+[gd_scene load_steps=12 format=3 uid="uid://3ik35vftc8pb"]
 
 [ext_resource type="Script" path="res://Scenes/fish_movement.gd" id="1_dj52s"]
 [ext_resource type="Texture2D" uid="uid://bkl68k68nimc1" path="res://3d assets/Fish_Alfred_UV.png" id="2_fx7mt"]
@@ -110,12 +110,14 @@ _data = {
 radius = 3.31438
 height = 10.1337
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_m0od7"]
+radius = 100.0
+
 [node name="Fish_Alfred" type="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.020298, -0.0363474, 0.0106788)
 script = ExtResource("1_dj52s")
 
 [node name="Armature" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, -5.45323)
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 
 [node name="Skeleton3D" type="Skeleton3D" parent="Armature"]
 bones/0/name = "body"
@@ -172,5 +174,16 @@ libraries = {
 }
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -6.11957)
+transform = Transform3D(1, 0, 0, 0, -0.00942468, -0.999956, 0, 0.999956, -0.00942468, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_btrid")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_m0od7")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]

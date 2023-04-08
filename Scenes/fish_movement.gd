@@ -9,11 +9,12 @@ const TRACK_DIST = 5
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var armature = $Armature
 @onready var timer = $Timer
-#@onready var lure = get_parent().get_parent().get_node("hook/balls")
-
-#@onready var lure := get_tree().get_root().get_scene("hook").get_node("balls")
+@onready var hitbox = $CollisionShape3D
 
 var rng = RandomNumberGenerator.new()
+
+var canSeeHook = false;
+var hookRef;
 
 var y_upper = 0
 var y_lower = -43
@@ -24,26 +25,15 @@ var x_lower = -100
 var z_upper = 100
 var z_lower = -100
 
-
 func _ready():
 	timer.connect("timeout", move)
 	timer.wait_time = 1
 	set_rand_vel()
 
 func move():
-	# get the poisiton of the lure
-	#var lure_pos = lure.global_position
-	#var error  = lure_pos-global_position
-	#var motionVec = (error).normalized() # find the direction of motion of the fish to approach the lure
 
-	#if (error.length() < TRACK_DIST): # if the distance toi the llure is less than the track threshold, trck
-		#velocity.x = motionVec.x * SPEED
-		#velocity.y = motionVec.y * SPEED
-		#velocity.y = motionVec.y * SPEED
-	#else:
-	set_rand_vel() # no lure in range, so random movements
-
-
+	if !canSeeHook:
+		set_rand_vel() # no lure in range, so random movements
 
 
 func set_rand_vel():
@@ -70,9 +60,9 @@ func set_rand_vel():
 	else:
 		velocity.z = rng.randi_range(-5, 5) * SPEED
 	
-	#velocity.z = rng.randi_range(-5, 5) * SPEED
+	print("howdy")
 	
-	armature.rotation.y = atan(velocity.z / velocity.x)
+	armature.global_rotation.y = atan(velocity.z / velocity.x)
 
 
 func isInBounds() -> bool:
@@ -95,7 +85,34 @@ func isInBounds() -> bool:
 	return inBounds
 
 func _physics_process(delta):
+
+
+	if canSeeHook:
+		if (hookRef != null):
+
+			#look_at(hookRef.global_position)
+			var distance = self.global_position - hookRef.global_position
+			self.velocity = distance.normalized() * -SPEED
+			armature.global_rotation.y = Math.PI - atan(velocity.x / velocity.z)
+			move_and_slide()
+			return
+		else:
+			canSeeHook = false;
+
 	if(!isInBounds()):
 		set_rand_vel()
-	
+
 	move_and_slide()
+
+
+func _process(delta):
+	pass
+
+
+
+func _on_area_3d_area_entered(area):
+	if area.get_name() == "hook":
+		print("frfr sheesh")
+		canSeeHook = true;
+		hookRef = area;
+

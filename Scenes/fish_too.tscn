@@ -101,21 +101,21 @@ bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 0.00204766, 0.999998, 0, -0.999998, 0.00204766, 0, 0.299272, 1.37823)
 bones/0/enabled = true
 bones/0/position = Vector3(0, 0.299272, 1.37823)
-bones/0/rotation = Quaternion(-0.706367, -0.00476491, -0.00475516, 0.707814)
+bones/0/rotation = Quaternion(-0.706382, 0, 0, 0.70783)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "subtail"
 bones/1/parent = 0
 bones/1/rest = Transform3D(1, 0, 0, 0, 0.999757, 0.0220434, 0, -0.0220434, 0.999757, 0, 3.74878, 6.51926e-09)
 bones/1/enabled = true
 bones/1/position = Vector3(0, 3.74878, 6.51926e-09)
-bones/1/rotation = Quaternion(-0.0110213, -0.000125431, 0.0139756, 0.999842)
+bones/1/rotation = Quaternion(-0.0110224, 0, 0, 0.999939)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "tail"
 bones/2/parent = 1
 bones/2/rest = Transform3D(1, 0, 0, 0, 0.9998, -0.019996, 0, 0.019996, 0.9998, 0, 5.001, 0)
 bones/2/enabled = true
 bones/2/position = Vector3(0, 5.001, 0)
-bones/2/rotation = Quaternion(0.00999641, -0.000204577, 0.0204598, 0.999741)
+bones/2/rotation = Quaternion(0.0099985, 0, 0, 0.99995)
 bones/2/scale = Vector3(1, 1, 1)
 bones/3/name = "shoulder.l"
 bones/3/parent = -1
@@ -157,10 +157,17 @@ libraries = {
 }
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -7.76821)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_1lu2o")
 
 [node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.275669, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("SphereShape3D_kcabg")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]

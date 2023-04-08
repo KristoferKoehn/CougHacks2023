@@ -95,7 +95,7 @@ func _physics_process(delta):
 		
 		
 	input_dir_lure = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
-	print(input_dir_lure)
+	##print(input_dir_lure)
 	if castState == 1:
 		bait.global_position.z += input_dir_lure[0]*0.01
 		bait.global_position.x += input_dir_lure[1]*-0.01

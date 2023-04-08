@@ -1,7 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://bf5y68shwmxdd"]
+[gd_scene load_steps=12 format=3 uid="uid://bf5y68shwmxdd"]
 
 [ext_resource type="Script" path="res://Scenes/fish_movement.gd" id="1_w5yx4"]
 [ext_resource type="Texture2D" uid="uid://dav5wfmigsx3j" path="res://3d assets/Fish_Wun_UV.png" id="2_jvp2r"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_avfwa"]
+radius = 1.3662
+height = 7.4872
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0goql"]
 albedo_texture = ExtResource("2_jvp2r")
@@ -47,6 +51,9 @@ bind/4/pose = Transform3D(0, 0, -1, -1, 0, 0, 0, 1, 0, 0.43022, 0, 0)
 bind/5/name = &"fin.r"
 bind/5/bone = -1
 bind/5/pose = Transform3D(0, 0, -1, -1, 0, 0, 0, 1, 0, 0.43022, -0.9, 0)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_u02wk"]
+radius = 50.0
 
 [sub_resource type="Animation" id="Animation_1su23"]
 resource_name = "sweep_loop"
@@ -106,12 +113,12 @@ _data = {
 "swim": SubResource("Animation_cx5or")
 }
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_avfwa"]
-radius = 1.3662
-height = 7.4872
-
 [node name="Fish_Wun" type="CharacterBody3D"]
 script = ExtResource("1_w5yx4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.5, -2.18557e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_avfwa")
 
 [node name="Armature" type="Node3D" parent="."]
 
@@ -128,7 +135,7 @@ bones/1/parent = 0
 bones/1/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.34887, 0)
 bones/1/enabled = true
 bones/1/position = Vector3(0, 4.34887, 0)
-bones/1/rotation = Quaternion(0, 0, -0.136868, 0.990589)
+bones/1/rotation = Quaternion(0, 0, 0, 1)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "shoulder.l"
 bones/2/parent = -1
@@ -165,15 +172,18 @@ material_override = SubResource("StandardMaterial3D_0goql")
 mesh = SubResource("ArrayMesh_idypo")
 skin = SubResource("Skin_fmjp1")
 
+[node name="Area3D" type="Area3D" parent="Armature"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Area3D"]
+shape = SubResource("SphereShape3D_u02wk")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_getpi")
 }
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.5, -2.18557e-08, 0, 0, 0)
-shape = SubResource("CapsuleShape3D_avfwa")
-
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true
+
+[connection signal="area_entered" from="Armature/Area3D" to="." method="_on_area_3d_area_entered"]

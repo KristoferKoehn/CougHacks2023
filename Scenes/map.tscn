@@ -7,11 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://bf5y68shwmxdd" path="res://Scenes/fish_wun.tscn" id="4_4m2jk"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hjr87"]
-size = Vector3(20, 1, 20)
+size = Vector3(400, 1, 400)
 
 [node name="Map" type="Node3D"]
-
-[node name="Node3D" parent="." instance=ExtResource("1_bepcn")]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.13644, 0)
@@ -25,15 +23,17 @@ transform = Transform3D(0.834934, -0.448227, 0.319339, -0.55035, -0.680004, 0.48
 light_color = Color(1, 0.380392, 0.164706, 1)
 
 [node name="basins" parent="." instance=ExtResource("3_ui47m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.674988, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -11.5118, 0)
 
 [node name="Node3D" parent="basins" instance=ExtResource("3_pnpyn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00221539, 0.0157821, 0.0156817)
 
 [node name="player" parent="." instance=ExtResource("3_on7y2")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.646956, 0)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.0332336, 0.57655, -0.210354)
 
 [node name="fish" type="Node" parent="."]
 
 [node name="Fish_Wun" parent="fish" instance=ExtResource("4_4m2jk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.78968, 0)
+
+[node name="water" parent="." instance=ExtResource("1_bepcn")]

@@ -84,14 +84,17 @@ func _physics_process(delta):
 	indicator.global_position = aimer.get_collision_point()
 	time += delta
 	
-	if Input.is_action_just_pressed("cast_line"):
+	if Input.is_action_just_pressed("cast_line") && castState == 0:
+
+		
+
 		bait = lure.instantiate()
 		add_child(bait)
 		
-		if castState == 0 :
-			bait.global_position = indicator.global_position
-			baitX = indicator.global_position.x
-			baitY = indicator.global_position.y
+		
+		bait.global_position = indicator.global_position
+		baitX = indicator.global_position.x
+		baitY = indicator.global_position.y
 		castState = 1
 		indicator.visible = false
 		velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -117,6 +120,7 @@ func _physics_process(delta):
 		hat2.visible = false
 		hat3.visible = false
 		hatcount = 0
+
 	if Input.is_action_just_pressed("hatchange"):
 		hatcount += 1
 		if hatcount ==1 :

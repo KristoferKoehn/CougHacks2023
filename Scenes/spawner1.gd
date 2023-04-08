@@ -16,7 +16,7 @@ func spawner():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	print(delta)
+	#print(delta)
 	timer += 1
 	if timer == 600:
 		timer = 0

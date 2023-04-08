@@ -116,6 +116,9 @@ func _physics_process(delta):
 		indicator.visible = false
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
+
+		#change camera 
+		indicatorCam.look_at(indicator.global_position)
 		indicatorCam.set_current(not indicatorCam.current)
 		
 		

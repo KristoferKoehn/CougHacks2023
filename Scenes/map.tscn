@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cdaqrv5ql75w1"]
+[gd_scene load_steps=14 format=3 uid="uid://cdaqrv5ql75w1"]
 
 [ext_resource type="Script" path="res://Scenes/map.gd" id="1_8yfr3"]
 [ext_resource type="PackedScene" uid="uid://bbr1aunn0ytqt" path="res://Scenes/water.tscn" id="1_bepcn"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://dws8o5244o0um" path="res://sounds/bite.wav" id="6_ra4oh"]
 [ext_resource type="AudioStream" uid="uid://davsjn57q0en6" path="res://sounds/birds.wav" id="7_fngbx"]
 [ext_resource type="AudioStream" uid="uid://dvoc47frami3o" path="res://sounds/aaackkckgh.wav" id="8_w7pr1"]
+[ext_resource type="AudioStream" uid="uid://prjwrhhylbp3" path="res://sounds/wind.wav" id="9_8ppd0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hjr87"]
 size = Vector3(400, 1, 400)
@@ -91,5 +92,11 @@ attenuation_filter_cutoff_hz = 2500.0
 [node name="Timer" type="Timer" parent="."]
 wait_time = 20.0
 autostart = true
+
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.52678, 59.0232, 0)
+stream = ExtResource("9_8ppd0")
+autoplay = true
+max_distance = 1000.0
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

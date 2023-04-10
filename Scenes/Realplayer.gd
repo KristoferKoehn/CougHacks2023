@@ -11,6 +11,7 @@ extends CharacterBody3D
 @onready var hat2 = $fuck/Skeleton3D/BoneAttachment3D2/theone
 @onready var hat3 = $fuck/Skeleton3D/BoneAttachment3D2/thejohnson
 @onready var retractSound = $retract
+@onready var rowSound = $row
 
 
 
@@ -88,7 +89,12 @@ func playerMovement():
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
-
+	
+	if(velocity == Vector3.ZERO):
+		rowSound.stop()
+	else:
+		if(!rowSound.playing):
+			rowSound.play()
 
 	
 	position.y = 0.5 + sin(time * FREQUENCY) * AMPLITUDE
@@ -102,16 +108,13 @@ func _physics_process(delta):
 	time += delta
 	
 	if Input.is_action_just_pressed("cast_line") && castState == 0:
-
-		
-
 		bait = lure.instantiate()
 		add_child(bait)
-		
 		
 		bait.global_position = indicator.global_position
 		baitX = indicator.global_position.x
 		baitY = indicator.global_position.y
+		
 		castState = 1
 		indicator.visible = false
 		velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -120,7 +123,6 @@ func _physics_process(delta):
 		#change camera 
 		indicatorCam.look_at(indicator.global_position)
 		indicatorCam.set_current(not indicatorCam.current)
-		
 		
 	input_dir_lure = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	

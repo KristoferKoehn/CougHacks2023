@@ -30,12 +30,12 @@ func _ready():
 	set_rand_vel()
 
 func move():
-
 	if !canSeeHook:
 		set_rand_vel() # no lure in range, so random movements
 
 
 func set_rand_vel():
+
 	if(global_position.y >= 0):
 		velocity.y = rng.randi_range(-3, -1) * SPEED
 	elif(global_position.y <= -40):
@@ -50,8 +50,6 @@ func set_rand_vel():
 		velocity.x = rng.randi_range(0, 5) * SPEED
 	else:
 		velocity.x = rng.randi_range(-5, 5) * SPEED
-
-
 	if(global_position.z >= 100):
 		velocity.z = rng.randi_range(-3, 0) * SPEED
 	elif(global_position.z <= -100):
@@ -59,8 +57,12 @@ func set_rand_vel():
 	else:
 		velocity.z = rng.randi_range(-5, 5) * SPEED
 	
+	#approximate 0
+	if(velocity.x == 0):
+		velocity.x = 0.00001
+
 	armature.global_rotation.y = atan(velocity.z / velocity.x)
-	
+
 
 
 func isInBounds() -> bool:
@@ -83,11 +85,8 @@ func isInBounds() -> bool:
 	return inBounds
 
 func _physics_process(delta):
-
-
 	if canSeeHook:
 		if (hookRef != null):
-
 			armature.look_at(hookRef.global_position)
 			armature.global_rotation = Vector3(0, PI + armature.global_rotation.y,0)
 			var distance = self.global_position - hookRef.global_position
@@ -95,10 +94,7 @@ func _physics_process(delta):
 
 			if distance.length() < 3:
 				emit_signal("fish_caught", 3)
-				
 				queue_free()
-				
-
 			move_and_slide()
 			return
 		else:
@@ -106,19 +102,14 @@ func _physics_process(delta):
 
 	if(!isInBounds()):
 		set_rand_vel()
-
 	move_and_slide()
 
 
 func _process(delta):
 	pass
 
-
-
 func _on_area_3d_area_entered(area):
 	if area.get_name() == "hook":
 		print("frfr sheesh")
 		canSeeHook = true;
 		hookRef = area;
-
-

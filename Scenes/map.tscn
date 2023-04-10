@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cdaqrv5ql75w1"]
+[gd_scene load_steps=15 format=3 uid="uid://cdaqrv5ql75w1"]
 
 [ext_resource type="Script" path="res://Scenes/map.gd" id="1_8yfr3"]
 [ext_resource type="PackedScene" uid="uid://bbr1aunn0ytqt" path="res://Scenes/water.tscn" id="1_bepcn"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dwq11d2oetdca" path="res://Scenes/spawner1.tscn" id="3_pnpyn"]
 [ext_resource type="PackedScene" uid="uid://jeyf06g13gtt" path="res://Scenes/basins.tscn" id="3_ui47m"]
 [ext_resource type="AudioStream" uid="uid://dws8o5244o0um" path="res://sounds/bite.wav" id="6_ra4oh"]
+[ext_resource type="AudioStream" uid="uid://n6bts1nopsnw" path="res://sounds/Cipher2.wav" id="7_a52e7"]
 [ext_resource type="AudioStream" uid="uid://davsjn57q0en6" path="res://sounds/birds.wav" id="7_fngbx"]
 [ext_resource type="AudioStream" uid="uid://dvoc47frami3o" path="res://sounds/aaackkckgh.wav" id="8_w7pr1"]
 [ext_resource type="AudioStream" uid="uid://prjwrhhylbp3" path="res://sounds/wind.wav" id="9_8ppd0"]
@@ -53,7 +54,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -14.6911, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00221539, 0.0157821, 0.0156817)
 
 [node name="player" parent="." instance=ExtResource("3_on7y2")]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.0332336, -0.027617, -0.210354)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.0332336, -0.563592, -0.210354)
 
 [node name="fish" type="Node" parent="."]
 
@@ -67,37 +68,70 @@ offset_bottom = 47.0
 text = "Score: 0"
 label_settings = SubResource("LabelSettings_trm64")
 
+[node name="fishCaughtLabel" type="Label" parent="."]
+offset_left = 22.0
+offset_top = 52.0
+offset_right = 140.0
+offset_bottom = 78.0
+text = "Fish Caught: 0"
+label_settings = SubResource("LabelSettings_trm64")
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_648xa")
 
 [node name="sounds" type="Node3D" parent="."]
+transform = Transform3D(0.999994, 0.00290204, -0.00163455, -0.00290503, 0.999994, -0.00183693, 0.00162922, 0.00184165, 0.999997, 0, 0, 0)
 
 [node name="bite" type="AudioStreamPlayer3D" parent="sounds"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.604167, 0)
 stream = ExtResource("6_ra4oh")
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.52678, 59.0232, 0)
-stream = ExtResource("7_fngbx")
+[node name="wind" type="AudioStreamPlayer3D" parent="sounds"]
+transform = Transform3D(0.999995, -0.00290504, 0.0016292, 0.00290203, 0.999994, 0.00184167, -0.00163456, -0.00183691, 0.999997, -2.69823, 59.0155, -0.10429)
+stream = ExtResource("9_8ppd0")
+unit_size = 10.24
 autoplay = true
 max_distance = 1000.0
 
-[node name="aughk" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 193.564, 26.6348, 0)
+[node name="aughk" type="AudioStreamPlayer3D" parent="sounds"]
+transform = Transform3D(0.999995, -0.00290504, 0.0016292, 0.00290203, 0.999994, 0.00184167, -0.00163456, -0.00183691, 0.999997, 193.486, 27.1964, -0.365319)
 stream = ExtResource("8_w7pr1")
 max_db = 0.537
 autoplay = true
 max_distance = 327.52
 attenuation_filter_cutoff_hz = 2500.0
 
+[node name="birds" type="AudioStreamPlayer3D" parent="sounds"]
+transform = Transform3D(0.999912, -0.00290504, 0.0129385, 0.00288102, 0.999994, 0.00187437, -0.0129439, -0.00183691, 0.999915, 18.6333, 58.5687, -277.107)
+stream = ExtResource("7_fngbx")
+unit_size = 8.55
+autoplay = true
+max_distance = 422.2
+
+[node name="birds2" type="AudioStreamPlayer3D" parent="sounds"]
+transform = Transform3D(0.999978, -0.00581303, 0.00325306, 0.00580101, 0.999977, 0.00368803, -0.00327444, -0.00366906, 0.999988, -297.508, 45.8438, -85.8033)
+stream = ExtResource("7_fngbx")
+autoplay = true
+max_distance = 1000.0
+
+[node name="birds3" type="AudioStreamPlayer3D" parent="sounds"]
+transform = Transform3D(0.999978, -0.00581302, 0.00325306, 0.00580101, 0.999977, 0.00368803, -0.00327444, -0.00366906, 0.999988, -22.0295, 61.4853, 263.003)
+stream = ExtResource("7_fngbx")
+autoplay = true
+max_distance = 1000.0
+
+[node name="birds4" type="AudioStreamPlayer3D" parent="sounds"]
+transform = Transform3D(0.999978, -0.00581302, 0.00325306, 0.005801, 0.999977, 0.00368802, -0.00327444, -0.00366905, 0.999988, 309.999, 61.9868, 10.8626)
+stream = ExtResource("7_fngbx")
+autoplay = true
+max_distance = 1000.0
+
+[node name="backgroundMusic" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("7_a52e7")
+autoplay = true
+
 [node name="Timer" type="Timer" parent="."]
 wait_time = 20.0
 autostart = true
-
-[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.52678, 59.0232, 0)
-stream = ExtResource("9_8ppd0")
-autoplay = true
-max_distance = 1000.0
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
